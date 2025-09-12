@@ -1,0 +1,2 @@
+type Query { hello: String, newField: Int! }
+type mutation { Query: { Hi: String, name: Int! } }
