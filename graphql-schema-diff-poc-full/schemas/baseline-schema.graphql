@@ -76,7 +76,7 @@ type State {
 """"""
 enum CacheControlScope {
   """"""
-  PUBLIC
+  PUBLIC!
   """"""
   PRIVATE
 }
