@@ -8,7 +8,7 @@ import {extractAndWriteTests} from "./extractCode";
 
 async function main() {
   const repoUrl = process.env.SCHEMA_REPO_URL;
-  const repoLocalPath = './tmp-repo';
+  const repoLocalPath = 'schemas';
   let latestSchemaStr: string;
   const baselinePath = './schemas/baseline-schema.graphql';
 

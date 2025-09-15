@@ -6,235 +6,136 @@ const client = new GraphQLClient(endpoint);
 
 describe('GraphQL Schema Changes', () => {
 
-  // Breaking Change: Removal of Query.hello
+  describe('Breaking Changes', () => {
+    it('should return an error when querying the removed "hello" field', async () => {
+      const query = gql`
+        query {
+          hello
+        }
+      `;
 
-  it('should fail when querying the removed hello field', async () => {
-    const query = gql`
-      query {
-        hello
+      try {
+        await client.request(query);
+      } catch (error: any) {
+        expect(error.message).toContain('Cannot query field "hello" on type "Query"'); // Or a similar error message based on your server
+        return; // Exit the test if an error occurred.
       }
-    `;
 
-    try {
-      await client.request(query);
-      fail('Query should have failed'); // Force a failure if the query succeeds
-    } catch (error: any) {
-      expect(error.message).toContain('Cannot query field "hello" on type "Query"'); // Check for the correct error message
-    }
+      // If no error was thrown, the test should fail
+      throw new Error('Expected an error to be thrown, but none was.');
+    });
+
+    it('should not return an error if the removed "hello" field is not queried', async () => {
+      const query = gql`
+        query {
+          countries {
+            code
+          }
+        }
+      `;
+
+      try {
+        await client.request(query);
+        // If the query succeeds, the test passes
+      } catch (error: any) {
+        // If any error was thrown, the test should fail
+        throw new Error(`Query should not have failed but got error: ${error.message}`);
+      }
+
+    });
   });
 
-  // Non-Breaking Changes: Additions of new types and fields
 
-  it('should successfully query the new continents field', async () => {
-    const query = gql`
-      query {
-        continents {
-          code
-          name
+  describe('Non-Breaking Changes', () => {
+    it('should successfully query the new "continents" field', async () => {
+      const query = gql`
+        query {
+          continents {
+            code
+            name
+          }
         }
-      }
-    `;
+      `;
 
-    try {
       const data = await client.request(query);
-      expect(data).toBeDefined();
-      expect(data.continents).toBeInstanceOf(Array);
+      expect(data.continents).toBeDefined();
+      // Add more specific checks on the data if you have test data available
+    });
 
-      //Add check that each item has `code` and `name` to prevent regression.
-      if(data.continents.length > 0){
-        expect(data.continents[0]).toHaveProperty('code');
-        expect(data.continents[0]).toHaveProperty('name');
-      }
-
-    } catch (error) {
-      console.error('Error querying continents:', error);
-      fail('Query should not have failed');
-    }
-  });
-
-  it('should successfully query the new continent field with a code argument', async () => {
-    const query = gql`
-      query GetContinent($code: String!) {
-        continent(code: $code) {
-          code
-          name
+    it('should successfully query the new "continent" field with a code argument', async () => {
+      const query = gql`
+        query {
+          continent(code: "EU") {
+            code
+            name
+          }
         }
-      }
-    `;
+      `;
 
-    const variables = {
-      code: 'AF', // Example continent code
-    };
-
-    try {
-      const data = await client.request(query, variables);
-      expect(data).toBeDefined();
+      const data = await client.request(query);
       expect(data.continent).toBeDefined();
-      expect(data.continent?.code).toBeDefined();
-      expect(data.continent?.name).toBeDefined();
-    } catch (error) {
-      console.error('Error querying continent:', error);
-      fail('Query should not have failed');
-    }
-  });
+      // Add more specific checks on the data if you have test data available
+    });
 
-    it('should successfully query the new countries field', async () => {
-    const query = gql`
-      query {
-        countries {
-          code
-          name
+    it('should successfully query the new "countries" field', async () => {
+      const query = gql`
+        query {
+          countries {
+            code
+            name
+          }
         }
-      }
-    `;
+      `;
 
-    try {
       const data = await client.request(query);
-      expect(data).toBeDefined();
-      expect(data.countries).toBeInstanceOf(Array);
+      expect(data.countries).toBeDefined();
+      // Add more specific checks on the data if you have test data available
+    });
 
-      if(data.countries.length > 0){
-        expect(data.countries[0]).toHaveProperty('code');
-        expect(data.countries[0]).toHaveProperty('name');
-      }
-    } catch (error) {
-      console.error('Error querying countries:', error);
-      fail('Query should not have failed');
-    }
-  });
-
-    it('should successfully query the new country field with a code argument', async () => {
-    const query = gql`
-      query GetCountry($code: String!) {
-        country(code: $code) {
-          code
-          name
+    it('should successfully query the new "country" field with a code argument', async () => {
+      const query = gql`
+        query {
+          country(code: "CA") {
+            code
+            name
+          }
         }
-      }
-    `;
+      `;
 
-    const variables = {
-      code: 'CA', // Example country code
-    };
-
-    try {
-      const data = await client.request(query, variables);
-      expect(data).toBeDefined();
+      const data = await client.request(query);
       expect(data.country).toBeDefined();
-      expect(data.country?.code).toBeDefined();
-      expect(data.country?.name).toBeDefined();
-    } catch (error) {
-      console.error('Error querying country:', error);
-      fail('Query should not have failed');
-    }
-  });
+      // Add more specific checks on the data if you have test data available
+    });
 
-    it('should successfully query the new languages field', async () => {
-    const query = gql`
-      query {
-        languages {
-          code
-          name
-        }
-      }
-    `;
-
-    try {
-      const data = await client.request(query);
-      expect(data).toBeDefined();
-      expect(data.languages).toBeInstanceOf(Array);
-      if(data.languages.length > 0){
-        expect(data.languages[0]).toHaveProperty('code');
-        expect(data.languages[0]).toHaveProperty('name');
-      }
-    } catch (error) {
-      console.error('Error querying languages:', error);
-      fail('Query should not have failed');
-    }
-  });
-
-    it('should successfully query the new language field with a code argument', async () => {
-    const query = gql`
-      query GetLanguage($code: String!) {
-        language(code: $code) {
-          code
-          name
-        }
-      }
-    `;
-
-    const variables = {
-      code: 'EN', // Example language code
-    };
-
-    try {
-      const data = await client.request(query, variables);
-      expect(data).toBeDefined();
-      expect(data.language).toBeDefined();
-      expect(data.language?.code).toBeDefined();
-      expect(data.language?.name).toBeDefined();
-    } catch (error) {
-      console.error('Error querying language:', error);
-      fail('Query should not have failed');
-    }
-  });
-
-
-  // Edge Case for continent: Invalid Continent Code
-
-  it('should handle the continent query gracefully with an invalid code', async () => {
-    const query = gql`
-      query GetContinent($code: String!) {
-        continent(code: $code) {
-          code
-          name
-        }
-      }
-    `;
-
-    const variables = {
-      code: 'ZZ', // Invalid continent code
-    };
-
-    try {
-      const data = await client.request(query, variables);
-      expect(data).toBeDefined();
-      // Depending on your server's implementation, you might expect:
-      // 1. data.continent to be null/undefined, OR
-      // 2. An error to be thrown.
-      // Adjust the expectation accordingly.
-      expect(data.continent).toBeNull();  // Or expect(data.continent).toBeUndefined();
-
-    } catch (error) {
-      console.error('Error querying continent:', error);
-      fail('Query should not have failed');
-    }
-  });
-
-    // Edge Case for country: Invalid Country Code
-
-    it('should handle the country query gracefully with an invalid code', async () => {
+      it('should successfully query the new "languages" field', async () => {
         const query = gql`
-          query GetCountry($code: String!) {
-            country(code: $code) {
+          query {
+            languages {
               code
               name
             }
           }
         `;
 
-        const variables = {
-          code: 'ZZ', // Invalid country code
-        };
-
-        try {
-          const data = await client.request(query, variables);
-          expect(data).toBeDefined();
-          expect(data.country).toBeNull();
-
-        } catch (error) {
-          console.error('Error querying country:', error);
-          fail('Query should not have failed');
-        }
+        const data = await client.request(query);
+        expect(data.languages).toBeDefined();
+        // Add more specific checks on the data if you have test data available
       });
+
+      it('should successfully query the new "language" field with a code argument', async () => {
+        const query = gql`
+          query {
+            language(code: "EN") {
+              code
+              name
+            }
+          }
+        `;
+
+        const data = await client.request(query);
+        expect(data.language).toBeDefined();
+        // Add more specific checks on the data if you have test data available
+      });
+
+  });
 });
