@@ -68,7 +68,7 @@ type State {
   """"""
   code: String
   """"""
-  name: String
+  name: String!
   """"""
   country: Country
 }
@@ -76,7 +76,7 @@ type State {
 """"""
 enum CacheControlScope {
   """"""
-  PUBLIC!
+  PUBLIC
   """"""
   PRIVATE
 }
