@@ -9,8 +9,10 @@ export async function cloneOrPull(repoUrl: string, localPath: string) {
   } catch (err) {
     // if already exists, pull
     const g = simpleGit(localPath);
-    await g.pull('origin', 'main');
+    await g.pull('origin', 'Development');
+    console.log("✅ Succesfully Pulled the data from the repo");
   }
+
 }
 
 export async function readSchemaFromRepo(localPath: string, schemaFilePath = 'schema.graphql') {
