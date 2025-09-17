@@ -6,7 +6,7 @@ type FieldInfo = {
   nonNull: boolean;
   isList: boolean;
   args?: Record<string, string>;
-  directives?: string[];
+  directives?: { name: string; args: Record<string, any> }[];
   description?: string | null;
 };
 
@@ -61,7 +61,13 @@ export function summarizeSchema(schemaStr: string): SchemaSummary {
             nonNull,
             isList,
             args,
-            directives: (f.directives || []).map((d: any) => d.name.value),
+            directives: (f.directives || []).map((d: any) => ({
+              name: d.name.value,
+              args: (d.arguments || []).reduce((acc: any, arg: any) => {
+                acc[arg.name.value] = arg.value.value;
+                return acc;
+              }, {})
+            })),
             description: f.description?.value ?? null,
           };
         });
@@ -138,6 +144,48 @@ export function diffSchemas(base: SchemaSummary, latest: SchemaSummary) {
                     if ((b.isList || false) !== (l.isList || false)) diffs.listnessChanged = { before: b.isList, after: l.isList };
                     if (JSON.stringify(b.args) !== JSON.stringify(l.args)) diffs.argsChanged = { before: b.args, after: l.args };
                     if (b.description !== l.description) diffs.descriptionChanged = { before: b.description, after: l.description };
+                    
+                    const baseDirectives = b.directives || [];
+                        const latestDirectives = l.directives || [];
+
+                        for (const ld of latestDirectives) {
+                          const bd = baseDirectives.find(d => d.name === ld.name);
+                          if (!bd) {
+                            fieldChanges.push({
+                              kind: "DIRECTIVE_ADDED",
+                              name: f,
+                              details: { directive: ld }
+                            });
+                          } else {
+                            // Compare args (e.g. minLength/maxLength)
+                            for (const [argKey, argVal] of Object.entries(ld.args)) {
+                              if (bd.args[argKey] !== argVal) {
+                                fieldChanges.push({
+                                  kind: "DIRECTIVE_ARG_CHANGED",
+                                  name: f,
+                                  details: {
+                                    directive: ld.name,
+                                    arg: argKey,
+                                    oldValue: bd.args[argKey],
+                                    newValue: argVal
+                                  }
+                                });
+                              }
+                            }
+                          }
+                        }
+
+                        for (const bd of baseDirectives) {
+                          const ld = latestDirectives.find(d => d.name === bd.name);
+                          if (!ld) {
+                            fieldChanges.push({
+                              kind: "DIRECTIVE_REMOVED",
+                              name: f,
+                              details: { directive: bd }
+                            });
+                          }
+                        }
+                    
                     if (Object.keys(diffs).length) {
                       fieldChanges.push({ kind: 'FIELD_MODIFIED', name: f, diffs, before: b, after: l });
                       }

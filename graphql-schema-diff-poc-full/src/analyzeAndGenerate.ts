@@ -17,7 +17,7 @@ export async function analyzeWithLLM(base: SchemaSummary, latest: SchemaSummary,
   };
 
   const prompt = `You are a GraphQL expert. Given the following schema diff, classify the changes as breaking or non-breaking. For each change explain briefly why. also fomrat the output in markdown format with appropriate headings.
-Also provide the details hirarchy of that change in the schema.
+Also provide the details hirarchy of that change in the schema. and also  - Highlight constraint changes (e.g., minLength, maxLength) clearly.
 Please return your answer in this format:
 
 BREAKING CHANGES:
