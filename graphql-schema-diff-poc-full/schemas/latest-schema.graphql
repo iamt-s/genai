@@ -28,7 +28,7 @@ type Country {
   """"""
   code: String
   """"""
-  name: String!@constrains(minLength:3, maxLength:20)
+  name: String!@constrains(minLength:2, maxLength:25)
   """"""
   native: String
   """"""
