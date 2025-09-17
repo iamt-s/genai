@@ -1,7 +1,7 @@
 import { readLocalSchema, readSchemaFromRepo, cloneOrPull } from './fetchSchema';
 import { summarizeSchema, diffSchemas } from './parseAndDiff';
 import { analyzeWithLLM } from './analyzeAndGenerate';
-import { writeReport, writeGeneratedTests } from './writeOutputs';
+import { writeReport,writeDiff, writeGeneratedTests } from './writeOutputs';
 import path from 'path';
 import fs from 'fs';
 import {extractAndWriteTests} from "./extractCode";
@@ -31,7 +31,7 @@ async function main() {
   const result = await analyzeWithLLM(baseSummary, latestSummary, diff);
 //   console.log(result);
 // Write report (.md + .json)
-  await writeReport(result.report_text, result, "reports"); // Writting the Json to reports folder
+  await writeDiff(result.report_text, result, "reports"); // Writting the Json to reports folder
 
   await extractAndWriteTests(result, "reports"); // Writting the test cases to generated-tests folder
 
