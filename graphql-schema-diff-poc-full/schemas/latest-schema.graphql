@@ -64,7 +64,7 @@ type State {
   """"""
   code: String
   """"""
-  name: String
+  name: String!
   """"""
   country: Country
 }
