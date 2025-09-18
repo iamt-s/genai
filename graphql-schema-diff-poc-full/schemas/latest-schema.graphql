@@ -35,13 +35,11 @@ type Country {
   """"""
   native: String
   """"""
-  phone: String
+  phone: String!
   """"""
   continent: Continent
   """"""
   currency: String
-  """"""
-  languages: [Language]!
   """"""
   emoji: String
   """"""
