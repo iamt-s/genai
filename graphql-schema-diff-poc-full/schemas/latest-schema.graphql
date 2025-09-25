@@ -67,7 +67,7 @@ type State {
   """"""
   name: String!
   """"""
-  country: Country
+  country: Country!
 }
 
 """"""
