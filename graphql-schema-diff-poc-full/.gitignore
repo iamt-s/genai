@@ -1,4 +1,4 @@
 [/reports/]
 [/tmp-repo/]
 [.env]
-[/schemas/]
+[schemas/baseline-schema.graphql]

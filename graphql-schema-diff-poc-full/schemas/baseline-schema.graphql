@@ -63,7 +63,7 @@ type Language {
 """"""
 type State {
   """"""
-  code: String
+  code: String!
   """"""
   name: String!
   """"""
