@@ -21,7 +21,7 @@ type Continent {
   """"""
   code: String
   """"""
-  name: String
+  name: String!
   """"""
   countries: [Country]
 }
