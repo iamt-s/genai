@@ -6,15 +6,14 @@ type Query {
   """"""
   continents: [Continent]
   """"""
-  continent(code: String): Continent
-  """"""
-  countries: [Country]!
+  continent(code: String): Continent!
+
   """"""
   country(code: String): Country
   """"""
   languages: [Language]!
   """"""
-  language(code: String): Language
+  language(code: String): Language!
 }
 
 """"""
@@ -22,7 +21,7 @@ type Continent {
   """"""
   code: String
   """"""
-  name: String
+  name: String!
   """"""
   countries: [Country]
 }
@@ -32,17 +31,15 @@ type Country {
   """"""
   code: String!
   """"""
-  name: String!
+  name: String!@constrains(minLength:2, maxLength:25)
   """"""
   native: String
   """"""
-  phone: String
+  phone: String!
   """"""
   continent: Continent
   """"""
   currency: String
-  """"""
-  languages: [Language]!
   """"""
   emoji: String
   """"""
@@ -51,7 +48,7 @@ type Country {
   states: [State]
 }
 
-""""""
+  """"""
 type Language {
   """"""
   code: String
