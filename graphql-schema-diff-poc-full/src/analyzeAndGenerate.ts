@@ -1,8 +1,9 @@
 import { SchemaSummary } from './parseAndDiff';
-import { askLLM } from './llmClient';
 import prettier from "prettier";
 import {callLLM} from "./callLLM";
-
+import dotenv from "dotenv";
+dotenv.config();
+const apiEndPoint = process.env.API_ENDPOINT || "https://countries.trevorblades.com/graphql";
 export async function analyzeWithLLM(base: SchemaSummary, latest: SchemaSummary, diff: any) {
   const payload = {
     summary: {
@@ -25,7 +26,11 @@ BREAKING CHANGES:
 
 NON-BREAKING CHANGES:
 - ...
-Generate tests for this differences. Validate both success and failure, and include edge cases, Also provide sample GET Request for each test case.format your response as a TypeScript code block.
+Generate tests for this differences. Validate both success and failure, 
+And include edge cases, Also provide sample GET Request with ${apiEndPoint}for each test case. 
+format your response as a separate TypeScript code block for Each Type and each type should be separate describe block of code.
+For Each Serate typescript code block it should create separate test file.
+Dscription should not be there in .ts file it should be only in markdown report.
 Diff:
 ${JSON.stringify(payload, null, 2)}
   `;
