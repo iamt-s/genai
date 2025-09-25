@@ -9,7 +9,7 @@ type Query {
   continent(code: String): Continent
 
   """"""
-  country(code: String): Country
+  country(code: String): Country!
   """"""
   languages: [Language]!
   """"""
