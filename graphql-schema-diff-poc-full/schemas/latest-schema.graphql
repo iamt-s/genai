@@ -6,7 +6,7 @@ type Query {
   """"""
   continents: [Continent]
   """"""
-  continent(code: String): Continent
+  continent(code: String): Continent!
 
   """"""
   country(code: String): Country
