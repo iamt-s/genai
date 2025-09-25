@@ -55,7 +55,7 @@ type Language {
   """"""
   name: String!
   """"""
-  native: String
+  native: String!
   """"""
   rtl: Int
 }
