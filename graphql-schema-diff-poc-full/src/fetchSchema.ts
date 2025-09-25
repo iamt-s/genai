@@ -32,7 +32,7 @@ export async function cloneOrPull(repoUrl: string, localPath: string) {
 
     if (!fs.existsSync(latestFilePath) || fs.readFileSync(latestFilePath, 'utf-8') !== latestSchema) {
       await fsp.writeFile(latestFilePath, latestSchema, 'utf-8');
-      console.log("✅ latest-schema.graphql updated");
+      console.log(`✅ latest-schema.graphql updated ${latestCommit}`);
     } else {
       console.log("ℹ️ latest-schema.graphql is already up-to-date");
     }
@@ -45,7 +45,7 @@ export async function cloneOrPull(repoUrl: string, localPath: string) {
       await fsp.writeFile(baselineFilePath, baselineSchema, 'utf-8');
       console.log(`✅ baseline-schema.graphql updated ${prevCommit} `);
     } else {
-      console.log(`ℹ️ baseline-schema.graphql is already up-to-date ${prevCommit}`);
+      console.log(`ℹ️ baseline-schema.graphql is already up-to-date`);
     }
 
   } catch (err) {
