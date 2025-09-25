@@ -19,7 +19,7 @@ type Query {
 """"""
 type Continent {
   """"""
-  code: String
+  code: String!
   """"""
   name: String!
   """"""
