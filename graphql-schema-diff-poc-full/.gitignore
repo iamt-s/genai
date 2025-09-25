@@ -1,3 +1,5 @@
 [/reports/]
 [/tmp-repo/]
 [.env]
+[latest-schema.graphql]
+[baseline-schema.graphql]
