@@ -51,7 +51,7 @@ type Country {
   """"""
 type Language {
   """"""
-  code: String
+  code: String!
   """"""
   name: String!
   """"""
