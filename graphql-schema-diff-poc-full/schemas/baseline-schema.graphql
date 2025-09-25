@@ -1,0 +1,82 @@
+""""""
+directive @cacheControl(maxAge: Int, scope: CacheControlScope) on FIELD_DEFINITION | OBJECT | INTERFACE
+
+""""""
+type Query {
+  """"""
+  continents: [Continent]
+  """"""
+  continent(code: String): Continent!
+
+  """"""
+  country(code: String): Country
+  """"""
+  languages: [Language]!
+  """"""
+  language(code: String): Language!
+}
+
+""""""
+type Continent {
+  """"""
+  code: String
+  """"""
+  name: String!
+  """"""
+  countries: [Country]
+}
+
+""""""
+type Country {
+  """"""
+  code: String!
+  """"""
+  name: String!@constrains(minLength:2, maxLength:25)
+  """"""
+  native: String
+  """"""
+  phone: String!
+  """"""
+  continent: Continent
+  """"""
+  currency: String
+  """"""
+  emoji: String
+  """"""
+  emojiU: String
+  """"""
+  states: [State]
+}
+
+  """"""
+type Language {
+  """"""
+  code: String
+  """"""
+  name: String!
+  """"""
+  native: String
+  """"""
+  rtl: Int
+}
+
+""""""
+type State {
+  """"""
+  code: String!
+  """"""
+  name: String!
+  """"""
+  country: Country!
+}
+
+""""""
+enum CacheControlScope {
+  """"""
+  PUBLIC
+  """"""
+  PRIVATE
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
