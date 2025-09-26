@@ -30,6 +30,7 @@ Generate tests for this differences. Validate both success and failure,
 And include edge cases, Also provide sample GET Request with ${apiEndPoint}for each test case. 
 format your response as a separate TypeScript code block for Each Type and each type should be separate describe block of code.
 For Each Serate typescript code block it should create separate test file.
+And It should contain atleast one test case which should contains all fields of all types in query with sample data.
 Dscription should not be there in .ts file it should be only in markdown report.
 Diff:
 ${JSON.stringify(payload, null, 2)}

@@ -35,14 +35,6 @@ async function main() {
 
   await extractAndWriteTests(result, "reports"); // Writting the test cases to generated-tests folder
 
-
-//   // Write generated Jest test files (.ts)
-// if (result.generated_tests && result.generated_tests.length > 0) {
-//   await writeGeneratedTests(result.generated_tests, "generated-tests");
-//   console.log("✅ Test files written to ./generated-tests");
-// } else {
-//   console.log("⚠️ No generated tests found in LLM response.");
-// }
 }
 
 main().catch((e) => {
