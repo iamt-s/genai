@@ -13,8 +13,8 @@ export async function writeReport(reportText: string, reportJson: any, outFolder
 
 export async function writeDiff(reportText: string, reportJson: any, outFolder = 'reports') {
   await fs.mkdir(outFolder, { recursive: true });
-  const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-  const mdFile = path.join(outFolder, `schema-diff-report-${timestamp}.md`);
+  //const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+  const mdFile = path.join(outFolder, `schema-diff-report.md`);
   await fs.writeFile(mdFile, reportText, 'utf8');
   return { mdFile };
 }
