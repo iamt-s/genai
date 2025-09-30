@@ -4,7 +4,7 @@ directive @cacheControl(maxAge: Int, scope: CacheControlScope) on FIELD_DEFINITI
 """"""
 type Query {
   """"""
-  continents: [Continent]
+  continents: [Continent]!
   """"""
   continent(code: String): Continent!
 
