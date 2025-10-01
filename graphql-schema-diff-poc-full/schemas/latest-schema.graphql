@@ -41,7 +41,7 @@ type Country {
   """"""
   currency: String
   """"""
-  emoji: String
+  emoji: String!
   """"""
   emojiU: String
   """"""
