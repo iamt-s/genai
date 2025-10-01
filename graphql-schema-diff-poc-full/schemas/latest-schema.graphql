@@ -29,7 +29,7 @@ type Continent {
 """"""
 type Country {
   """"""
-  code: String!
+  code: String!@constrains(minLength:2, maxLength:3)
   """"""
   name: String!@constrains(minLength:2, maxLength:25)
   """"""
