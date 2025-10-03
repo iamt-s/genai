@@ -6,10 +6,10 @@ type Query {
   """"""
   continents: [Continent]
   """"""
-  continent(code: String): Continent!
+  continent(code: String): Continent
 
   """"""
-  country(code: String): Country
+  country(code: String): Country!
   """"""
   languages: [Language]!
   """"""
@@ -29,7 +29,7 @@ type Continent {
 """"""
 type Country {
   """"""
-  code: String!
+  code: String!@constrains(minLength:2, maxLength:3)
   """"""
   name: String!@constrains(minLength:2, maxLength:25)
   """"""
@@ -41,7 +41,7 @@ type Country {
   """"""
   currency: String
   """"""
-  emoji: String
+  emoji: String!
   """"""
   emojiU: String
   """"""
@@ -51,11 +51,11 @@ type Country {
   """"""
 type Language {
   """"""
-  code: String
+  code: String!
   """"""
   name: String!
   """"""
-  native: String
+  native: String!
   """"""
   rtl: Int
 }

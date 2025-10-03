@@ -1,0 +1,150 @@
+{
+  "addedTypes": [],
+  "removedTypes": [],
+  "changedTypes": [
+    {
+      "typeName": "Query",
+      "changes": [
+        {
+          "kind": "DIRECTIVE_ADDED",
+          "name": "languages",
+          "details": {
+            "directive": {
+              "name": "constrains",
+              "args": {
+                "minLength": "4",
+                "maxLength": "20"
+              }
+            }
+          }
+        }
+      ],
+      "before": {
+        "kind": "OBJECT",
+        "name": "Query",
+        "fields": {
+          "continents": {
+            "name": "continents",
+            "type": "Continent",
+            "nonNull": false,
+            "isList": true,
+            "args": {},
+            "directives": [],
+            "description": ""
+          },
+          "continent": {
+            "name": "continent",
+            "type": "Continent",
+            "nonNull": false,
+            "isList": false,
+            "args": {
+              "code": "String"
+            },
+            "directives": [],
+            "description": ""
+          },
+          "country": {
+            "name": "country",
+            "type": "Country",
+            "nonNull": true,
+            "isList": false,
+            "args": {
+              "code": "String"
+            },
+            "directives": [],
+            "description": ""
+          },
+          "languages": {
+            "name": "languages",
+            "type": "Language",
+            "nonNull": true,
+            "isList": true,
+            "args": {},
+            "directives": [],
+            "description": ""
+          },
+          "language": {
+            "name": "language",
+            "type": "Language",
+            "nonNull": true,
+            "isList": false,
+            "args": {
+              "code": "String"
+            },
+            "directives": [],
+            "description": ""
+          }
+        },
+        "description": "",
+        "directives": []
+      },
+      "after": {
+        "kind": "OBJECT",
+        "name": "Query",
+        "fields": {
+          "continents": {
+            "name": "continents",
+            "type": "Continent",
+            "nonNull": false,
+            "isList": true,
+            "args": {},
+            "directives": [],
+            "description": ""
+          },
+          "continent": {
+            "name": "continent",
+            "type": "Continent",
+            "nonNull": false,
+            "isList": false,
+            "args": {
+              "code": "String"
+            },
+            "directives": [],
+            "description": ""
+          },
+          "country": {
+            "name": "country",
+            "type": "Country",
+            "nonNull": true,
+            "isList": false,
+            "args": {
+              "code": "String"
+            },
+            "directives": [],
+            "description": ""
+          },
+          "languages": {
+            "name": "languages",
+            "type": "Language",
+            "nonNull": true,
+            "isList": true,
+            "args": {},
+            "directives": [
+              {
+                "name": "constrains",
+                "args": {
+                  "minLength": "4",
+                  "maxLength": "20"
+                }
+              }
+            ],
+            "description": ""
+          },
+          "language": {
+            "name": "language",
+            "type": "Language",
+            "nonNull": true,
+            "isList": false,
+            "args": {
+              "code": "String"
+            },
+            "directives": [],
+            "description": ""
+          }
+        },
+        "description": "",
+        "directives": []
+      }
+    }
+  ]
+}
