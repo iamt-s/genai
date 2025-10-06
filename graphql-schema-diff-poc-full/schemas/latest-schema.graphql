@@ -14,7 +14,7 @@ type Query {
   """"""
   languages: [Language]!@constrains(minLength:4, maxLength:20)
   """"""
-  language(code: String): Language!
+  language(code: String): Language
 }
 
 """"""
