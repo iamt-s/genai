@@ -51,8 +51,7 @@ BREAKING CHANGES:
 NON-BREAKING CHANGES:
 - ...
 Generate tests for this differences. Validate both success and failure, 
-While create test cases, atleast one test should be there which consist all old and new fields in payload that one full pay load should get tested.
-And include edge cases, Also provide sample GET Request with ${apiEndPoint}for each test case. 
+And include edge cases, Also provide sample GET Request with ${apiEndPoint}for each test case. Use following template ${template} and add or remove fields as per the changes in schema.
 format your response as a separate TypeScript code block for Each Type and each type should be separate describe block of code.
 For Each Serate typescript code block it should create separate test file.
 
