@@ -32,7 +32,7 @@ type Country {
   """"""
   code: String!@constrains(minLength:2, maxLength:5)
   """"""
-  name: String!@constrains(minLength:2, maxLength:15)
+  name: String!@constrains(minLength:2, maxLength:10)
   """"""
   native: String
   """"""
