@@ -16,48 +16,51 @@ export async function analyzeWithLLM(base: SchemaSummary, latest: SchemaSummary,
     },
     guidance: "Generate detailed explanation and TypeScript Jest tests with graphql-request.",
   };
-const template=`query ExampleQuery {
-  continents {
-    code
-    name
-    
-  }
-  countries {
-    code
-    name
-    currency
-    emoji
-    native
-    phone
-    emojiU
-    states{
-       code
-       name
-    }
-  }
-  languages {
-    code
-  }
-  
-}
-}`;
-  const prompt = `You are a GraphQL expert. Given the following schema diff, classify the changes as breaking or non-breaking. For each change explain briefly why. also fomrat the output in markdown format with appropriate headings.
-Also provide the details hirarchy of that change in the schema. and also  - Highlight constraint changes (e.g., minLength, maxLength) clearly.
-Please return your answer in this format:
+ const prompt = `You are given a GraphQL schema and a list of schema changes.  
+Your task has two parts:
+
+### Part 1: Schema Diff Analysis
+- Given the following schema diff, classify the changes as breaking or non-breaking.  
+- For each change, explain briefly why it is breaking or non-breaking.  
+- Show the hierarchy/path of the change in the schema (e.g., Query → country → field: name).  
+- Highlight constraint changes (e.g., minLength, maxLength, non-nullability, enums) clearly.  
+- Format the output in **Markdown** using the following structure exactly:
 
 BREAKING CHANGES:
-- ...
+- [Change description]  
+  - Reason: ...  
+  - Hierarchy: ...  
+  - Constraint changes: ...
 
 NON-BREAKING CHANGES:
-- ...
-Generate tests for this differences. Validate both success and failure, 
-And include edge cases, Also provide sample GET Request with ${apiEndPoint}for each test case. Use following template as it is ${template}.
-Keep all the types mentioned in the template just add or remove fields as per the changes in schema.
-while need to use countries code to get the response according to the schema.Use actual data instead of variables in the query. like countries {code: "IN"}.
-format your response as a separate TypeScript code block for Each Type and each type should be separate describe block of code.
-For Each Serate typescript code block it should create separate test file.
+- [Change description]  
+  - Reason: ...  
+  - Hierarchy: ...  
+  - Constraint changes: ...
 
+### Part 2: Test Case Generation
+Generate a full suite of Jest test cases in TypeScript. The suite must include:
+1. Positive test cases for the new or modified fields/queries.
+2. Negative test cases for invalid inputs, missing arguments, or unexpected values.
+3. One mandatory "master test case" that queries **all types and all fields** from the schema.
 
+#### Rules for the master test case:
+- Use this exact test name:  
+  "it('should fetch all the types and it's fields successfully', async () => { ... })"
+- Always include all root queries and their nested fields one level deep (avoid infinite recursion).
+- Do not change the structure or formatting of the master test — only insert the field list from the schema.
+- Keep indentation and formatting exactly as shown.
+
+#### Rules for the other test cases:
+- Cover both positive and negative scenarios based on the schema changes.
+- Follow consistent Jest style: "it('...', async () => { ... })".
+- Use "GraphQLClient" for executing queries.
+- Keep test descriptions clear and aligned with the schema changes.
+
+#### Final Output:
+1. Return **schema diff analysis** first in markdown format.
+2. Then return all tests in a single block of TypeScript code.
+3. Always include the master test case last.
 Dscription should not be there in .ts file it should be only in markdown report.
 Diff:
 ${JSON.stringify(payload, null, 2)}
