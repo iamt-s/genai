@@ -45,8 +45,10 @@ type Country {
   emoji:String!
   """"""
   emojiU:String!
+  """"""
   state: String
-
+  """"""
+  population:Int!
 }
 
   """"""
