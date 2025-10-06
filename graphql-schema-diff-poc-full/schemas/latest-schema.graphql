@@ -42,8 +42,6 @@ type Country {
   """"""
   currency: String
  
-  """"""
-  states: [State]
 
 }
 
