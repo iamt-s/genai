@@ -52,7 +52,7 @@ The suite must include:
 3. One mandatory **master test case** (below), which must be included exactly as written, always at the end.
 
 #### ✅ Mandatory Master Test Case (should change only if schema changes and filter it accordingly):
-add all mandatory subfields from schema in types mentioned in below payload
+add all mandatory subfields from schema in types mentioned in below payload not only code and name
     it('should fetch all the types and it's fields successfully', async () => { 
       const graphQLClient = new GraphQLClient(endpoint);
 
