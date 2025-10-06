@@ -43,6 +43,20 @@ Generate a full suite of Jest test cases in TypeScript. The suite must include:
 1. Positive test cases for the new or modified fields/queries.
 2. Negative test cases for invalid inputs, missing arguments, or unexpected values.
 3. One mandatory "master test case" that queries **all types and all fields** from the schema.
+Template to follow:
+------------------------------------------------
+it('should fetch all the types and it's fields successfully', async () => { 
+    const graphQLClient = new GraphQLClient(endpoint);
+
+    const query = gql"
+      query ExampleQuery {
+        ... ALL ROOT QUERIES AND FIELDS GO HERE ...
+      }
+    ";
+
+    const response = await graphQLClient.request(query);
+    expect(response).toBeDefined();
+});
 
 #### Rules for the master test case:
 - Use this exact test name:  
