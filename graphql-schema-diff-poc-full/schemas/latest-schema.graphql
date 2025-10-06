@@ -30,9 +30,9 @@ type Continent {
 """"""
 type Country {
   """"""
-  code: String!@constrains(minLength:2, maxLength:3)
+  code: String!@constrains(minLength:2, maxLength:5)
   """"""
-  name: String!@constrains(minLength:2, maxLength:20)
+  name: String!@constrains(minLength:2, maxLength:15)
   """"""
   native: String
   """"""
