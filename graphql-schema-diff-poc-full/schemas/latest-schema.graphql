@@ -8,9 +8,9 @@ type Query {
   """"""
   continent(code: String): Continent
   """"""
-  countries:[Country]
+  countries:[Country]!
   """"""
-  country(code: String): Country
+  country(code: String): Country!
   """"""
   languages: [Language]!@constrains(minLength:4, maxLength:20)
   """"""
