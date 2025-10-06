@@ -51,7 +51,7 @@ The suite must include:
 2. Negative test cases for invalid inputs, missing arguments, or unexpected values.  
 3. One mandatory **master test case** (below), which must be included exactly as written, always at the end.
 
-#### ✅ Mandatory Master Test Case (should change only if schema changes):
+#### ✅ Mandatory Master Test Case (should change only if schema changes and filter it accordingly):
 
     it('should fetch all the types and it's fields successfully', async () => { 
       const graphQLClient = new GraphQLClient(endpoint);
