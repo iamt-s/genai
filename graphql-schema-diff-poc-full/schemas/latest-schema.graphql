@@ -41,9 +41,7 @@ type Country {
   continent: Continent
   """"""
   currency: String
-  """"""
-  emoji: String!
-
+ 
   """"""
   states: [State]
 
