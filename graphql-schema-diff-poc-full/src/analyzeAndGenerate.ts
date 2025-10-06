@@ -59,92 +59,37 @@ The suite must include:
       const query = gql\`
         query ExampleQuery {
           continents {
-            code
-            name
+             #subfileds of continents
             countries {
-              code
-              name
-              native
-              phone
-              capital
-              currency
-              emoji
-              emojiU
+              #subfileds of countries
             }
           }
           continent(code: "EU") {
-            code
-            name
-            countries {
-              code
-              name
-              native
-              phone
-              capital
-              currency
-              emoji
-              emojiU
-            }
+             #subfileds of continents
           }
           countries {
-            code
-            name
-            native
-            phone
-            capital
-            currency
-            emoji
-            emojiU
-            continent {
-              code
-              name
-            }
+             #subfileds of continents
             languages {
-              code
-              name
-              native
-              rtl
+               #subfileds of Languages
             }
             states {
-              code
-              name
+              #subfileds of states
             }
           }
           country(code: "IN") {
-            code
-            name
-            native
-            phone
-            capital
-            currency
-            emoji
-            emojiU
-            continent {
-              code
-              name
-            }
+             #subfileds of country
             languages {
-              code
-              name
-              native
-              rtl
+               #subfileds of Languages
             }
             states {
-              code
-              name
+               #subfileds of states
             }
           }
           languages {
-            code
-            name
-            native
-            rtl
+            #subfileds of Languages
           }
           language(code: "en") {
-            code
-            name
-            native
-            rtl
+            #subfileds of Languages
           }
         }
       \`;
