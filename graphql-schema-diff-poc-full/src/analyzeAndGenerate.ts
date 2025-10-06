@@ -3,7 +3,7 @@ import prettier from "prettier";
 import {callLLM} from "./callLLM";
 import dotenv from "dotenv";
 dotenv.config();
-const apiEndPoint = process.env.API_ENDPOINT || "https://countries.trevorblades.com/graphql";
+const apiEndPoint = process.env.API_ENDPOINT || "http://localhost:4000/graphql";
 export async function analyzeWithLLM(base: SchemaSummary, latest: SchemaSummary, diff: any) {
   const payload = {
     summary: {
@@ -16,7 +16,31 @@ export async function analyzeWithLLM(base: SchemaSummary, latest: SchemaSummary,
     },
     guidance: "Generate detailed explanation and TypeScript Jest tests with graphql-request.",
   };
-
+const template=`query ExampleQuery {
+  continents {
+    code
+    name
+    
+  }
+  countries {
+    code
+    name
+    currency
+    emoji
+    native
+    phone
+    emojiU
+    states{
+       code
+       name
+    }
+  }
+  languages {
+    code
+  }
+  
+}
+}`;
   const prompt = `You are a GraphQL expert. Given the following schema diff, classify the changes as breaking or non-breaking. For each change explain briefly why. also fomrat the output in markdown format with appropriate headings.
 Also provide the details hirarchy of that change in the schema. and also  - Highlight constraint changes (e.g., minLength, maxLength) clearly.
 Please return your answer in this format:
@@ -30,7 +54,9 @@ Generate tests for this differences. Validate both success and failure,
 And include edge cases, Also provide sample GET Request with ${apiEndPoint}for each test case. 
 format your response as a separate TypeScript code block for Each Type and each type should be separate describe block of code.
 For Each Serate typescript code block it should create separate test file.
-Along with all possitive and negative test cases of the changes identified, one test case should be there which should have query which should contain all the fields from all the type contains in schema
+Along with all possitive and negative test cases of the changes identified, one test case should be there which should have query along with all the fields from all the type contains in schema with some sample data Template as belwow:
+${template};
+
 Dscription should not be there in .ts file it should be only in markdown report.
 Diff:
 ${JSON.stringify(payload, null, 2)}

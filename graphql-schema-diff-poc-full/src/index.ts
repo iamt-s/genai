@@ -5,6 +5,10 @@ import { writeReport,writeDiff, writeGeneratedTests } from './writeOutputs';
 import path from 'path';
 import fs from 'fs';
 import {extractAndWriteTests} from "./extractCode";
+import express from "express";
+import { graphqlHTTP } from "express-graphql";
+import { makeExecutableSchema } from "@graphql-tools/schema";
+
 
 async function main() {
   const repoUrl = process.env.SCHEMA_REPO_URL;
@@ -41,3 +45,4 @@ main().catch((e) => {
   console.error(e);
   process.exit(1);
 });
+
