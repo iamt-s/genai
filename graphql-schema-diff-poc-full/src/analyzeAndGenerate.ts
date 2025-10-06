@@ -51,7 +51,9 @@ BREAKING CHANGES:
 NON-BREAKING CHANGES:
 - ...
 Generate tests for this differences. Validate both success and failure, 
-And include edge cases, Also provide sample GET Request with ${apiEndPoint}for each test case. Use following template ${template} and add or remove fields as per the changes in schema.
+And include edge cases, Also provide sample GET Request with ${apiEndPoint}for each test case. Use following template as it is ${template}.
+Keep all the types mentioned in the template just add or remove fields as per the changes in schema.
+while need to use countries code to get the response according to the schema.Use actual data instead of variables in the query. like countries {code: "IN"}.
 format your response as a separate TypeScript code block for Each Type and each type should be separate describe block of code.
 For Each Serate typescript code block it should create separate test file.
 
