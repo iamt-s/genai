@@ -26,7 +26,7 @@ Your task has two parts:
 - For each change:
   - Explain briefly why it is breaking or non-breaking.  
   - Provide the **hierarchy/path** of the change in the schema (e.g., Query → country → field: name).  
-  - Highlight **constraint changes** (e.g., minLength, maxLength, non-nullability, enums).  
+  - Highlight **constraint changes** (e.g., minLength, maxLength, non-nullability, enums) clearly.  
 - Format the output in **Markdown** using the following structure exactly:
 
 
