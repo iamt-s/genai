@@ -19,12 +19,16 @@ export async function analyzeWithLLM(base: SchemaSummary, latest: SchemaSummary,
  const prompt = `You are given a GraphQL schema and a list of schema changes.  
 Your task has two parts:
 
+---
+
 ### Part 1: Schema Diff Analysis
-- Given the following schema diff, classify the changes as breaking or non-breaking.  
-- For each change, explain briefly why it is breaking or non-breaking.  
-- Show the hierarchy/path of the change in the schema (e.g., Query → country → field: name).  
-- Highlight constraint changes (e.g., minLength, maxLength, non-nullability, enums) clearly.  
+- Given the following schema diff, classify the changes as **breaking** or **non-breaking**.  
+- For each change:
+  - Explain briefly why it is breaking or non-breaking.  
+  - Provide the **hierarchy/path** of the change in the schema (e.g., Query → country → field: name).  
+  - Highlight **constraint changes** (e.g., minLength, maxLength, non-nullability, enums).  
 - Format the output in **Markdown** using the following structure exactly:
+
 
 BREAKING CHANGES:
 - [Change description]  
@@ -38,30 +42,121 @@ NON-BREAKING CHANGES:
   - Hierarchy: ...  
   - Constraint changes: ...
 
+---
+
 ### Part 2: Test Case Generation
-Generate a full suite of Jest test cases in TypeScript. The suite must include:
-1. Positive test cases for the new or modified fields/queries.
-2. Negative test cases for invalid inputs, missing arguments, or unexpected values.
-3. One mandatory "master test case" that queries **all types and all fields** from the schema.
-4. Maintain the relevant datatype for constants in the tests.
-Template to follow:
-------------------------------------------------
-it('should fetch all the types and it's fields successfully', async () => { 
-    const graphQLClient = new GraphQLClient(endpoint);
+Generate a full suite of Jest test cases in TypeScript.  
+The suite must include:
+1. Positive test cases for the new or modified fields/queries.  
+2. Negative test cases for invalid inputs, missing arguments, or unexpected values.  
+3. One mandatory **master test case** (below), which must be included exactly as written, always at the end.
 
-    const query = gql"
-      query ExampleQuery {
-        ... ALL ROOT QUERIES AND FIELDS GO HERE ...
-      }
-    ";
+#### ✅ Mandatory Master Test Case (do not change formatting):
 
-    const response = await graphQLClient.request(query);
-    expect(response).toBeDefined();
-});
+    it('should fetch all the types and it's fields successfully', async () => { 
+      const graphQLClient = new GraphQLClient(endpoint);
+
+      const query = gql\`
+        query ExampleQuery {
+          continents {
+            code
+            name
+            countries {
+              code
+              name
+              native
+              phone
+              capital
+              currency
+              emoji
+              emojiU
+            }
+          }
+          continent(code: "EU") {
+            code
+            name
+            countries {
+              code
+              name
+              native
+              phone
+              capital
+              currency
+              emoji
+              emojiU
+            }
+          }
+          countries {
+            code
+            name
+            native
+            phone
+            capital
+            currency
+            emoji
+            emojiU
+            continent {
+              code
+              name
+            }
+            languages {
+              code
+              name
+              native
+              rtl
+            }
+            states {
+              code
+              name
+            }
+          }
+          country(code: "IN") {
+            code
+            name
+            native
+            phone
+            capital
+            currency
+            emoji
+            emojiU
+            continent {
+              code
+              name
+            }
+            languages {
+              code
+              name
+              native
+              rtl
+            }
+            states {
+              code
+              name
+            }
+          }
+          languages {
+            code
+            name
+            native
+            rtl
+          }
+          language(code: "en") {
+            code
+            name
+            native
+            rtl
+          }
+        }
+      \`;
+
+      const response = await graphQLClient.request(query);
+      expect(response).toBeDefined();
+    });
+
+---
 
 #### Rules for the master test case:
-- Use this exact test name:  
-  "it('should fetch all the types and it's fields successfully', async () => { ... })"
+- Use this exact test name.  
 - Always include all root queries and their nested fields one level deep (avoid infinite recursion).
 - Do not change the structure or formatting of the master test — only insert the field list from the schema.
 - Keep indentation and formatting exactly as shown.
@@ -76,10 +171,12 @@ it('should fetch all the types and it's fields successfully', async () => {
 1. Return **schema diff analysis** first in markdown format.
 2. Then return all tests in a single block of TypeScript code.
 3. Always include the master test case last.
-Dscription should not be there in .ts file it should be only in markdown report.
+4. Description should not be there in .ts file, it should be only in markdown report.
+
 Diff:
 ${JSON.stringify(payload, null, 2)}
-  `;
+`;
+
 
   const raw = await callLLM(prompt);
   let parsed: any = { report_text: raw, generated_tests: [] };
