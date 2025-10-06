@@ -31,21 +31,21 @@ type Country {
   """"""
   code: String!@constrains(minLength:2, maxLength:3)
   """"""
-  name: String!@constrains(minLength:2, maxLength:25)
+  name: String!@constrains(minLength:2, maxLength:20)
   """"""
   native: String
   """"""
-  phone: String!
+  phone: Int!
   """"""
   continent: Continent
   """"""
   currency: String
   """"""
-  emoji: String!
-  """"""
+  
   emojiU: String
   """"""
   states: [State]
+ population: Int!
 }
 
   """"""
