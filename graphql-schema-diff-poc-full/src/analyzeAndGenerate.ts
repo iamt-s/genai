@@ -43,6 +43,7 @@ Generate a full suite of Jest test cases in TypeScript. The suite must include:
 1. Positive test cases for the new or modified fields/queries.
 2. Negative test cases for invalid inputs, missing arguments, or unexpected values.
 3. One mandatory "master test case" that queries **all types and all fields** from the schema.
+4. Maintain the relevant datatype for constants in the tests.
 Template to follow:
 ------------------------------------------------
 it('should fetch all the types and it's fields successfully', async () => { 
