@@ -51,11 +51,11 @@ BREAKING CHANGES:
 NON-BREAKING CHANGES:
 - ...
 Generate tests for this differences. Validate both success and failure, 
+While create test cases, atleast one test should be there which consist all old and new fields in payload that one full pay load should get tested.
 And include edge cases, Also provide sample GET Request with ${apiEndPoint}for each test case. 
 format your response as a separate TypeScript code block for Each Type and each type should be separate describe block of code.
 For Each Serate typescript code block it should create separate test file.
-Along with all possitive and negative test cases of the changes identified, one test case should be there which should have query along with all the fields from all the type contains in schema with some sample data Template as belwow:
-${template};
+
 
 Dscription should not be there in .ts file it should be only in markdown report.
 Diff:
