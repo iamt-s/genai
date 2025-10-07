@@ -1,81 +1,82 @@
-""""""
-directive @cacheControl(maxAge: Int, scope: CacheControlScope) on FIELD_DEFINITION | OBJECT | INTERFACE
+directive @constrains(minLength: Int, maxLength: Int) on FIELD_DEFINITION | INPUT_FIELD_DEFINITION
 
-""""""
 type Query {
-  """"""
-  continents: [Continent]
-  """"""
-  continent(code: String): Continent
-  """"""
-  countries:[Country]!
-  """"""
-  country(code: String): Country!
-  """"""
-  languages: [Language]!@constrains(minLength:4, maxLength:10)
-  """"""
-  language(code: String): Language!
+  continents: [Continent!]!
+  continent(code: String!): Continent
+  countries: [Country!]!
+  country(code: String!): Country
+  languages: [Language!]!
+  language(code: String!): Language
 }
 
-""""""
+type Mutation {
+  addCountry(input: CountryInput!): Country!
+  updateCountry(code: String!, input: CountryInput!): Country!
+  deleteCountry(code: String!): Boolean!
+
+  addState(input: StateInput!): State!
+  deleteState(code: String!): Boolean!
+
+  addLanguage(input: LanguageInput!): Language!
+  deleteLanguage(code: String!): Boolean!
+}
+
 type Continent {
-  """"""
-  code: String
-  """"""
+  code: String!
   name: String!
-  """"""
-  countries: [Country]
+  countries: [Country!]!
 }
 
-""""""
 type Country {
-  """"""
-  code: String!@constrains(minLength:2, maxLength:5)
-  """"""
-  name: String!@constrains(minLength:2, maxLength:10)
-  """"""
+  code: String! @constrains(minLength: 2, maxLength: 3)
+  name: String! @constrains(minLength: 2, maxLength: 25)
   native: String
-  """"""
   phone: String!
-  """"""
-  continent: Continent
-  """"""
+  continent: Continent!
   currency: String
-   """"""
-  emoji:String!
-  """"""
-  emojiU:String!
- }
-
-  """"""
-type Language {
-  """"""
-  code: String!
-  """"""
-  name: String!
-  """"""
-  native: String!
-  """"""
-  rtl: Int
+  emoji: String!
+  emojiU: String
+  population: Int!
+  states: [State!]!
+  languages: [Language!]!
 }
 
-""""""
 type State {
-  """"""
   code: String!
-  """"""
   name: String!
-  """"""
   country: Country!
 }
 
-""""""
-enum CacheControlScope {
-  """"""
-  PUBLIC
-  """"""
-  PRIVATE
+type Language {
+  code: String!
+  name: String!
+  native: String!
+  rtl: Int
+  country: Country!
 }
 
-"""The `Upload` scalar type represents a file upload."""
-scalar Upload
+input CountryInput {
+  code: String! @constrains(minLength: 2, maxLength: 3)
+  name: String! @constrains(minLength: 2, maxLength: 25)
+  native: String
+  phone: String!
+  continent: String!
+  currency: String
+  emoji: String!
+  emojiU: String
+  population: Int!
+}
+
+input StateInput {
+  code: String!
+  name: String!
+  country: String!
+}
+
+input LanguageInput {
+  code: String!
+  name: String!
+  native: String!
+  rtl: Int
+  country: String!
+}
