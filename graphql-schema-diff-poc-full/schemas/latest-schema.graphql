@@ -12,9 +12,9 @@ type Query {
   """"""
   country(code: String): Country!
   """"""
-  languages: [Language]!@constrains(minLength:4, maxLength:15)
+  languages: [Language]!@constrains(minLength:4, maxLength:10)
   """"""
-  language(code: String): Language
+  language(code: String): Language!
 }
 
 """"""
