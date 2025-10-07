@@ -1,7 +1,7 @@
 directive @constrains(minLength: Int, maxLength: Int) on FIELD_DEFINITION | INPUT_FIELD_DEFINITION
 
 type Query {
-  continents: [Continent!]!
+  continents: [Continent!]
   continent(code: String!): Continent
   countries: [Country!]!
   country(code: String!): Country
