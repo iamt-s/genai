@@ -37,7 +37,7 @@ type Country {
   emoji: String!
   emojiU: String
   population: Int!
-  states: [State!]!
+  states: [State]
   languages: [Language]
 }
 
