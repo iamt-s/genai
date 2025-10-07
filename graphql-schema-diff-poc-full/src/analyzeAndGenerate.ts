@@ -16,6 +16,29 @@ export async function analyzeWithLLM(base: SchemaSummary, latest: SchemaSummary,
     },
     guidance: "Generate detailed explanation and TypeScript Jest tests with graphql-request.",
   };
+  const template =` query {
+            countries(code: "IN") {
+                code
+                name
+                native
+                phone
+                continent {
+                    code
+                }
+                currency
+                languages {
+                    code
+                }
+                emoji
+                emojiU
+                states{
+                    code
+                    name
+                }
+              population  
+              languages{ name}
+            }
+        }`
  const prompt = `You are a GraphQL expert. Given the following schema diff, classify the changes as breaking or non-breaking. For each change explain briefly why. also fomrat the output in markdown format with appropriate headings.
 Also provide the details hirarchy of that change in the schema. and also  - Highlight constraint changes (e.g., minLength, maxLength) clearly.
 Please return your answer in this format:
@@ -26,7 +49,7 @@ BREAKING CHANGES:
 NON-BREAKING CHANGES:
 - ...
 Generate tests for this differences. Validate both success and failure, And include edge cases, Also provide sample GET Request with ${apiEndPoint}for each test case.
-Keep all the types mentioned in the template just add or remove fields as per the changes in schema.
+Keep all the types mentioned in the ${template} just add or remove fields as per the changes in schema.
 while need to use countries code to get the response according to the schema.Use actual data instead of variables in the query. like countries {code: "IN"}.
 format your response as a separate TypeScript code block for Each Type and each type should be separate describe block of code.
 For Each Serate typescript code block it should create separate test file.
