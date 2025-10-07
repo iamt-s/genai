@@ -48,7 +48,8 @@ type Country {
   """"""
   state: String
   """"""
-  population:Int!
+
+  
 }
 
   """"""
