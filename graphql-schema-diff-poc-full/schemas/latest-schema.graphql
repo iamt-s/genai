@@ -48,11 +48,11 @@ type State {
 }
 
 type Language {
-  code: String!
-  name: String!
-  native: String!
+  code: String
+  name: String
+  native: String
   rtl: Int
-  country: Country!
+  country: Country
 }
 
 input CountryInput {
