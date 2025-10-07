@@ -4,9 +4,9 @@ type Query {
   continents: [Continent]!
   continent(code: String!): Continent!
   countries: [Country!]!
-  country(code: String!): Country
+  country(code: String!): Country!
   languages: [Language!]!
-  language(code: String!): Language
+  language(code: String!): Language!
 }
 
 type Mutation {
@@ -33,8 +33,6 @@ type Country {
   native: String
   phone: Int!
   continent: Continent
-  capital:String!
-  currency: String
   emoji: String
   emojiU: String
   population: Int!
@@ -48,11 +46,11 @@ type State {
 }
 
 type Language {
-  code: String
-  name: String
+  code: String!
+  name: String!
   native: String
   rtl: Int
-  country: Country
+  country: Country!
 }
 
 input CountryInput {
@@ -64,7 +62,7 @@ input CountryInput {
   currency: String
   emoji: String!
   emojiU: String
-  population: Int
+  population: Int!
 }
 
 input StateInput {
