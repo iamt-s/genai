@@ -36,7 +36,6 @@ type Country {
   emoji: String
   emojiU: String  
   languages: [Language]
-  capital:String
   }
 
 type State {
