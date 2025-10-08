@@ -50,6 +50,7 @@ NON-BREAKING CHANGES:
 - ...
 Generate tests for this differences. Validate both success and failure, And include edge cases, Also provide sample GET Request with ${apiEndPoint}for each test case.
 Keep all the types mentioned in the ${template} just add or remove fields as per the changes in schema.
+While creating type specific test cases, ensure to include all nonNullable/Mandatory fields of that type as per the latest schema in payloads in tests.
 while need to use countries code to get the response according to the schema.Use actual data instead of variables in the query. like countries {code: "IN"}.
 format your response as a separate TypeScript code block for Each Type and each type should be separate describe block of code.
 For Each Serate typescript code block it should create separate test file.
