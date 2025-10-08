@@ -34,11 +34,9 @@ type Country {
   phone: String!
   continent: Continent
   emoji: String
-  emojiU: String
-  capital:String
+  emojiU: String  
   languages: [Language]
-  state:[State]!
-}
+  }
 
 type State {
   code: String!
