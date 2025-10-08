@@ -31,12 +31,13 @@ type Country {
   code: String! @constrains(minLength: 2, maxLength: 3)
   name: String! @constrains(minLength: 2, maxLength: 20)
   native: String
-  phone: Int!
+  phone: String!
   continent: Continent
   emoji: String
   emojiU: String
-  population: Int!
+  capital:String
   languages: [Language]
+  state:[State]!
 }
 
 type State {
@@ -55,7 +56,7 @@ type Language {
 
 input CountryInput {
   code: String! @constrains(minLength: 2, maxLength: 3)
-  name: String! @constrains(minLength: 2, maxLength: 25)
+  name: String! @constrains(minLength: 2, maxLength: 20)
   native: String
   phone: String!
   continent: String!
