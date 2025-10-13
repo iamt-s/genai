@@ -24,11 +24,11 @@ type Mutation {
 type Continent {
   code: String!
   name: String!
-  countries: [Country!]!
+
 }
 
 type Country {
-  code: String! @constrains(minLength: 2, maxLength: 3)
+  code: String! @constrains(minLength: 2, maxLength: 5)
   name: String! @constrains(minLength: 2, maxLength: 20)
   native: String
   phone: Int!
@@ -36,7 +36,7 @@ type Country {
   emoji: String
   emojiU: String  
   languages: [Language]
-  capital:String
+  capital:String!
   state:[State!]!
   }
 
