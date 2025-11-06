@@ -54,7 +54,7 @@ NON-BREAKING CHANGES:
 - while need to use countries code to get the response according to the schema.Use actual data instead of variables in the query. like countries {code: "IN"}.
 - format your response as a separate TypeScript code block for Each Type and each type should be separate describe block of code.
 - For Each Serate typescript code block it should create separate test file.
-- Always include one master test case in every generated test file, which queries for a country using countries(code: "IN") and 
+- Always include one master test case in every generated test file for country, which queries for a country using countries(code: "IN") and 
 - requests all possible fields for the Country type as per the latest schema. The master case should validate the full payload and
   ensure all fields are present and correct.
 - Description should not be there in .ts file it should be only in markdown report.
