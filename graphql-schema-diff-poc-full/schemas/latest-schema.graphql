@@ -1,7 +1,7 @@
 directive @constrains(minLength: Int, maxLength: Int) on FIELD_DEFINITION | INPUT_FIELD_DEFINITION
 
 type Query {
-  continents: [Continent!]
+
   continent(code: String!): Continent!
   countries: [Country!]!
   country(code: String!): Country!
@@ -61,9 +61,9 @@ input CountryInput {
   phone:Int!
   continent: String!
   currency: String
-  emoji: String!
+  
   emojiU:String
-  population: Int
+  population: Int!
 }
 
 input StateInput {
