@@ -3,8 +3,8 @@ directive @constrains(minLength: Int, maxLength: Int) on FIELD_DEFINITION | INPU
 type Query {
   continents: [Continent!]
   continent(code: String!): Continent!
-  countries: [Country!]!
-  country(code: String!): Country!
+  countries: [Country]
+  country(code: String!): Country
   languages: [Language!]
   language(code: String!): Language!
 }
@@ -31,9 +31,8 @@ type Country {
   code: String! @constrains(minLength: 2, maxLength: 5)
   name: String! @constrains(minLength: 2, maxLength: 25)
   native: String
-  phone: Int!
+  phone: String!
   continent: Continent
-  emoji: String
   emojiU: String  
   languages: [Language]
   capital:String!
