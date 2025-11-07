@@ -3,8 +3,8 @@ directive @constrains(minLength: Int, maxLength: Int) on FIELD_DEFINITION | INPU
 type Query {
 
   continent(code: String!): Continent!
-  countries: [Country!]!
-  country(code: String!): Country!
+  countries: [Country]
+  country(code: String!): Country
   languages: [Language]!
   language(code: String!): Language!
 }
@@ -50,7 +50,7 @@ type Language {
  
   name: String!
   native: String
-  rtl: Int
+  rtl: Int!
  
 }
 
@@ -69,7 +69,7 @@ input CountryInput {
 input StateInput {
   code: String!
   name: String!
-  country: String!
+
 }
 
 input LanguageInput {
