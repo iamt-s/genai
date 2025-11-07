@@ -4,7 +4,7 @@ import * as fs from 'fs';            // for existsSync, readFileSync
 import * as fsp from 'fs/promises'
 
 export async function cloneOrPull(repoUrl: string, localPath: string) {
-  const repoFilePath = 'graphql-schema-diff-poc-full/schemas/latest-schema.graphql';
+  const repoFilePath = 'schemas/latest-schema.graphql';
   try {
     // Clone if folder doesn't exist
    
@@ -14,6 +14,7 @@ export async function cloneOrPull(repoUrl: string, localPath: string) {
   } catch (err) {
     // if already exists, pull
     const g = simpleGit(localPath);
+    await g.checkout('Development'); 
     await g.pull('origin', 'Development');
     console.log("✅ Succesfully Pulled the data from the repo");
   }
