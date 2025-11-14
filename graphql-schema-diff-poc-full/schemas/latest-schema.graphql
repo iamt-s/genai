@@ -31,7 +31,7 @@ type Country {
   code: String! @constrains(minLength: 2, maxLength: 10)
   name: String! @constrains(minLength: 2, maxLength: 25)
   native: String
-  phone: Int!
+  phone: String!
   continent: Continent
   emoji:String
   emojiU: String  
