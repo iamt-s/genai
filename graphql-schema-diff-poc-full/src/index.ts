@@ -14,7 +14,7 @@ async function main() {
   if (repoUrl) {
     console.log('Cloning or pulling repo...');
     await cloneOrPull(repoUrl, repoLocalPath);
-    latestSchemaStr = await readSchemaFromRepo(repoLocalPath, process.env.SCHEMA_PATH || './latest-schema.graphql');
+    latestSchemaStr = await readSchemaFromRepo(repoLocalPath, process.env.SCHEMA_PATH || '.schemas/latest-schema.graphql');
   } else {
     latestSchemaStr = await readLocalSchema('./schemas/latest-schema.graphql');
   }
