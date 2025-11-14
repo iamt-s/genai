@@ -4,7 +4,7 @@ import * as fs from 'fs';            // for existsSync, readFileSync
 import * as fsp from 'fs/promises'
 
 export async function cloneOrPull(repoUrl: string, localPath: string) {
-  const repoFilePath = 'schemas/latest-schema.graphql';
+  const repoFilePath = './latest-schema.graphql';
   try {
     // Clone if folder doesn't exist
    
@@ -20,8 +20,12 @@ export async function cloneOrPull(repoUrl: string, localPath: string) {
   }
     const g = simpleGit(localPath);
 
+     // Fetch latest from remote to ensure we have the newest commits
+    await g.fetch('origin', 'Development');
+
+
     // Get latest and previous commit hashes
-    const log = await g.log(['-n', '2', 'Development']);
+    const log = await g.log(['-n', '2', 'origin/Development']);
     const latestCommit = log.latest?.hash;
     const prevCommit = log.all[1]?.hash;
 
