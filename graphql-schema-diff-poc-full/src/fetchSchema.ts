@@ -4,7 +4,7 @@ import * as fs from 'fs';            // for existsSync, readFileSync
 import * as fsp from 'fs/promises'
 
 export async function cloneOrPull(repoUrl: string, localPath: string) {
-  const repoFilePath = './schemas/latest-schema.graphql';
+  const repoFilePath = './latest-schema.graphql';
   try {
     // Clone if folder doesn't exist
    
