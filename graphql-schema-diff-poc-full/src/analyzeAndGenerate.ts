@@ -1,6 +1,7 @@
 import { SchemaSummary } from './parseAndDiff';
 import prettier from "prettier";
 import {callLLM} from "./callLLM";
+import {callLLM2} from "./callLLM2";
 import dotenv from "dotenv";
 dotenv.config();
 const apiEndPoint = process.env.API_ENDPOINT || "http://localhost:4000/graphql";
@@ -63,7 +64,7 @@ ${JSON.stringify(payload, null, 2)}
 `;
 
 
-  const raw = await callLLM(prompt);
+  const raw = await callLLM2(prompt);
   let parsed: any = { report_text: raw, generated_tests: [] };
   try {
     const start = raw.indexOf('{');

@@ -7,17 +7,16 @@
     "scan": "ts-node src/index.ts"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.69.0",
     "@google/generative-ai": "^0.24.1",
     "axios": "^1.11.0",
     "deep-diff": "^1.0.2",
     "dotenv": "^17.2.2",
-     "graphql": "^16.7.0",
+    "graphql": "^16.7.0",
     "graphql-request": "^6.1.0",
     "openai": "^4.0.0",
     "prettier": "^2.8.0",
-    "simple-git": "^3.16.0"  
-  
-
+    "simple-git": "^3.16.0"
   },
   "devDependencies": {
     "@types/deep-diff": "^1.0.1",
