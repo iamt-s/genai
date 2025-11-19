@@ -63,7 +63,7 @@ input CountryInput {
   currency: String
   emoji:String
   emojiU:String
-  population: Int!
+ 
 }
 
 input StateInput {
