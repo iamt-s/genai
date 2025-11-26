@@ -64,7 +64,7 @@ ${JSON.stringify(payload, null, 2)}
 `;
 
 
-  const raw = await callLLM2(prompt);
+  const raw = await callLLM(prompt);
   let parsed: any = { report_text: raw, generated_tests: [] };
   try {
     const start = raw.indexOf('{');

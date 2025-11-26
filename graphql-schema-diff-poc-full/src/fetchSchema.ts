@@ -40,7 +40,7 @@ export async function cloneOrPull(repoUrl: string, localPath: string) {
       console.log(`✅ latest-schema.graphql updated ${latestCommit}`);
     } else {
       console.log("ℹ️ latest-schema.graphql is already up-to-date So Stopping the execution here No changes found");
-        process.exit(1);
+       // process.exit(1);
     }
 
     // --- Baseline schema (one commit behind) ---
