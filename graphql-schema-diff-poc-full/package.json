@@ -9,6 +9,7 @@
   "dependencies": {
     "@anthropic-ai/sdk": "^0.69.0",
     "@google/generative-ai": "^0.24.1",
+    "@modelcontextprotocol/sdk": "^1.22.0",
     "axios": "^1.11.0",
     "deep-diff": "^1.0.2",
     "dotenv": "^17.2.2",
@@ -23,6 +24,7 @@
     "@types/jest": "^30.0.0",
     "@types/node": "^18.19.124",
     "@types/prettier": "^2.7.3",
+    "@types/ws": "^8.18.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
   }

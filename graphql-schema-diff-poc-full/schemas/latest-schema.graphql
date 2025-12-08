@@ -34,7 +34,7 @@ type Country {
   phone: String!
   continent: Continent
   emoji:String
-   
+  emojiU: String   
   languages: [Language]
   State:String!
   population:String!
