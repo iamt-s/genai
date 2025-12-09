@@ -1,16 +1,16 @@
 directive @constrains(minLength: Int, maxLength: Int) on FIELD_DEFINITION | INPUT_FIELD_DEFINITION
 
 type Query {
-
-  continent(code: String!): Continent!
-  countries: [Country!]!
-  country(code: String!): Country!
-  languages: [Language]!
-  language(code: String!): Language!
+  continents: [Continent!]!
+  continent(code: String!): Continent
+  countries(code: String): [Country!]!
+  country(code: String!): Country
+  languages: [Language!]!
+  language(code: String!): Language
 }
 
 type Mutation {
-  addCountry(input: CountryInput!): Country!
+  CreateCountry(input: CountryInput!): Country!
   updateCountry(code: String!, input: CountryInput!): Country!
   deleteCountry(code: String!): Boolean!
 
@@ -24,27 +24,26 @@ type Mutation {
 type Continent {
   code: String!
   name: String!
-
+  countries: [Country!]!
 }
 
 type Country {
-  code: String! @constrains(minLength: 2, maxLength: 10)
+  code: String! @constrains(minLength: 2, maxLength: 3)
   name: String! @constrains(minLength: 2, maxLength: 25)
   native: String
-  phone: String!
-  continent: Continent
-  emoji:String
-  emojiU: String   
-  languages: [Language]
-  State:String!
-  population:Int1
- 
-
-  
-  }
+  phone: String
+  continent: Continent!
+  currency: String
+  emoji: String!
+  emojiU: String
+  population: Int!
+  states: [State]
+  languages: [Language!]!
+  capital:String!
+}
 
 type State {
- 
+  code: String!
   name: String!
   country: Country!
 }
@@ -52,27 +51,28 @@ type State {
 type Language {
   code: String!
   name: String!
-
-  rtl: Int!
- 
+  native: String!
+  rtl: Int
+  country: Country!
 }
 
 input CountryInput {
-  code: String! @constrains(minLength: 2, maxLength: 5)
+  code: String! @constrains(minLength: 2, maxLength: 3)
   name: String! @constrains(minLength: 2, maxLength: 25)
   native: String
-  phone:String!
+  phone: String!
   continent: String!
   currency: String
-  emoji:String
-  emojiU:String
-  State:String!
+  emoji: String!
+  emojiU: String
+  population: Int!
+  capital:String!
 }
 
 input StateInput {
   code: String!
   name: String!
-
+  country: String!
 }
 
 input LanguageInput {
