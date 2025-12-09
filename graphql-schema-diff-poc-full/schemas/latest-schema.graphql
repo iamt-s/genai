@@ -39,7 +39,7 @@ type Country {
   population: Int!
   states: [State]
   languages: [Language!]!
-  capital:String!
+  
 }
 
 type State {
@@ -52,7 +52,7 @@ type Language {
   code: String!
   name: String!
   native: String!
-  rtl: Int
+
   country: Country!
 }
 
